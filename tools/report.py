@@ -154,6 +154,15 @@ def main():
     if not un:
         print("  一件も記録されていない。投稿の表面しか読んでいない可能性がある。")
 
+    # --- なのさ本人の証言 ---
+    tm = [r for r in rows if str(r.get("testimony", "")).strip()]
+    print(f"\n## なのさ本人に聞いて分かったこと　{len(tm)} 件\n")
+    print("（投稿を読んでも分からない。聞くしかない。本の材料はここにある）\n")
+    for r in tm[:40]:
+        print(f"  {r.get('id')}  {r.get('testimony', '')[:80]}")
+    if not tm:
+        print("  まだ聞けていない。strength 4〜5 の回から順に聞く。")
+
     # --- 反証 ---
     cn = [r for r in rows if str(r.get("counter_evidence", "")).strip()]
     print(f"\n## 仮説に合わない投稿　{len(cn)} 件 / {len(rows)}\n")

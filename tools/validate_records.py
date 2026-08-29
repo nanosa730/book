@@ -16,7 +16,8 @@ import sys
 REQUIRED = ["id", "day", "source", "event", "insight", "view",
             "basis", "themes", "strength", "promise", "unsaid",
             "counter_evidence"]
-OPTIONAL = ["date", "question", "quotes", "story_seed", "links", "notes"]
+OPTIONAL = ["date", "question", "quotes", "testimony", "story_seed",
+            "links", "notes"]
 BASIS = {"stated", "implied"}
 PROMISE = {"promise", "reframe", "neither"}
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
