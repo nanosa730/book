@@ -47,6 +47,7 @@
 | `docs/09_絶対負.md` | 思想の骨格。翻訳の問題と、物語への変換 |
 | `docs/10_希望という問題.md` | **未解決。本の最後の一行が決まっていない** |
 | `docs/11_空白の地図.md` | 1668本が扱ってこなかった領域。**本が引き受ける場所** |
+| `docs/12_具体と抽象.md` | **本文の書き方。この本の技術的な中心課題** |
 
 ---
 
@@ -69,6 +70,7 @@ python3 tools/split_posts.py 元データ.txt --out posts/ --size 50   # 分割
 python3 tools/validate_records.py                                  # 記録の形式検査
 python3 tools/report.py                                            # PHASE 3 の集計
 python3 tools/length_vs_promise.py                                 # 長さと希望の関係
+python3 tools/abstraction.py --day 1650                            # 具体／抽象の推移
 ```
 
 `validate_records.py` は1バッチ書き終えるたびに走らせる。
