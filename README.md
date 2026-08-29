@@ -26,7 +26,7 @@
 
 ## いまここ
 
-**PHASE 1〜2 進行中。19本受領・分析済み（Day1650〜1668）／全1668本。**
+**PHASE 1〜2 進行中。39本受領・分析済み（Day1630〜1668）／全1668本。**
 
 → 貼り方と受け取りの手順は `docs/06_原文の受け取り方.md`
 
@@ -68,6 +68,7 @@ docs/03_思想地図.md          繰り返される思想と、そのつなが�
 python3 tools/split_posts.py 元データ.txt --out posts/ --size 50   # 分割
 python3 tools/validate_records.py                                  # 記録の形式検査
 python3 tools/report.py                                            # PHASE 3 の集計
+python3 tools/length_vs_promise.py                                 # 長さと希望の関係
 ```
 
 `validate_records.py` は1バッチ書き終えるたびに走らせる。
