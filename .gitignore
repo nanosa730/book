@@ -1,0 +1,8 @@
+# 作業用の一時ファイル
+scratch/
+*.tmp
+__pycache__/
+.DS_Store
+
+# 生成物（必要になったら外す）
+analysis/reports/
