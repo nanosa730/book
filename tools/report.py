@@ -119,6 +119,28 @@ def main():
     if len(hot) > 60:
         print(f"  … 他 {len(hot) - 60} 件")
 
+    # --- 「良くなる」と約束しているか ---
+    pr = collections.Counter(r.get("promise") for r in rows)
+    n = len(rows)
+    print("\n## 「良くなる」と約束しているか（本の結末を決める集計）\n")
+    labels = [("promise", "良くなると約束している（希望）"),
+              ("reframe", "見え方が変わると言っている（希望ではない）"),
+              ("neither", "どちらでもない")]
+    for key, label in labels:
+        c = pr.get(key, 0)
+        print(f"{c:5d}  {100 * c / n:5.1f}%  {bar(c, max(pr.values()) / 30 if pr else 0):30s}  {label}")
+    p_n, r_n = pr.get("promise", 0), pr.get("reframe", 0)
+    print()
+    if p_n or r_n:
+        if r_n > p_n * 2:
+            print("→ reframe が優勢。なのさの文体は、最初から絶対負と両立していた可能性が高い。")
+            print("　 執行草舟の「希望は悪徳」と衝突しない。憧れで終わらせる道が開く。")
+        elif p_n > r_n:
+            print("→ promise が優勢。衝突は本物。")
+            print("　 執行草舟に従うか、読後感を守るかを選ぶことになる（docs/10）。")
+        else:
+            print("→ 拮抗している。時期による違いがないか、年ごとに見る必要がある。")
+
     # --- 触れかけて、触れなかったこと ---
     un = [r for r in rows if str(r.get("unsaid", "")).strip()]
     un.sort(key=lambda r: (-r.get("strength", 0), r.get("day") or 0))

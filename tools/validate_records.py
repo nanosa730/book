@@ -14,9 +14,11 @@ import re
 import sys
 
 REQUIRED = ["id", "day", "source", "event", "insight", "view",
-            "basis", "themes", "strength", "unsaid", "counter_evidence"]
+            "basis", "themes", "strength", "promise", "unsaid",
+            "counter_evidence"]
 OPTIONAL = ["date", "question", "quotes", "story_seed", "links", "notes"]
 BASIS = {"stated", "implied"}
+PROMISE = {"promise", "reframe", "neither"}
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
@@ -84,6 +86,11 @@ def main():
 
             if r.get("basis") not in BASIS:
                 errors.append(f"{where} basis は stated / implied のどちらか: {r.get('basis')!r}")
+
+            if r.get("promise") not in PROMISE:
+                errors.append(
+                    f"{where} promise は promise / reframe / neither のいずれか: "
+                    f"{r.get('promise')!r}")
 
             s = r.get("strength")
             if not isinstance(s, int) or not 1 <= s <= 5:
