@@ -119,10 +119,23 @@ def main():
     if len(hot) > 60:
         print(f"  … 他 {len(hot) - 60} 件")
 
+    # --- 触れかけて、触れなかったこと ---
+    un = [r for r in rows if str(r.get("unsaid", "")).strip()]
+    un.sort(key=lambda r: (-r.get("strength", 0), r.get("day") or 0))
+    print(f"\n## 触れかけて、触れなかったこと　{len(un)} 件 / {len(rows)}\n")
+    print("（本の核は1193本に書かれていない。核は空白の側にある。")
+    print("　触れかけて引き返した場所が、物語の始点になる）\n")
+    for r in un[:60]:
+        print(f"  [{r.get('strength')}] {r.get('id')}  {r.get('unsaid', '')[:70]}")
+    if len(un) > 60:
+        print(f"  … 他 {len(un) - 60} 件")
+    if not un:
+        print("  一件も記録されていない。投稿の表面しか読んでいない可能性がある。")
+
     # --- 反証 ---
     cn = [r for r in rows if str(r.get("counter_evidence", "")).strip()]
     print(f"\n## 仮説に合わない投稿　{len(cn)} 件 / {len(rows)}\n")
-    print("（「人生とは不幸なものである」で説明できない投稿。ここを軽く見ない）\n")
+    print("（本の核の仮説で説明できない投稿。ここを軽く見ない）\n")
     for r in cn[:40]:
         print(f"  {r.get('id')}  {r.get('counter_evidence', '')[:80]}")
     if len(cn) > 40:

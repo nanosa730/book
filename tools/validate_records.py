@@ -14,7 +14,7 @@ import re
 import sys
 
 REQUIRED = ["id", "day", "source", "event", "insight", "view",
-            "basis", "themes", "strength", "counter_evidence"]
+            "basis", "themes", "strength", "unsaid", "counter_evidence"]
 OPTIONAL = ["date", "question", "quotes", "story_seed", "links", "notes"]
 BASIS = {"stated", "implied"}
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -55,6 +55,7 @@ def main():
     unknown_tags = collections.Counter()
     total = 0
     no_counter = collections.Counter()
+    no_unsaid = collections.Counter()
 
     for f in files:
         for lineno, raw in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
@@ -107,6 +108,8 @@ def main():
 
             if not str(r.get("counter_evidence", "")).strip():
                 no_counter[f.name] += 1
+            if not str(r.get("unsaid", "")).strip():
+                no_unsaid[f.name] += 1
 
     print(f"レコード数: {total}（{len(files)} ファイル）")
 
@@ -116,7 +119,12 @@ def main():
         if n and no_counter.get(f.name, 0) == n:
             warnings.append(
                 f"{f.name} は counter_evidence が全件空。"
-                "「人生とは不幸なものである」に引きずられていないか読み返す。"
+                "仮説に引きずられていないか読み返す。"
+            )
+        if n and no_unsaid.get(f.name, 0) == n:
+            warnings.append(
+                f"{f.name} は unsaid が全件空。"
+                "本の核は空白の側にある。投稿の表面しか読んでいない可能性がある。"
             )
 
     if unknown_tags:
